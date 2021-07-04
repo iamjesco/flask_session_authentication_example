@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<section class="login py-5">
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6">
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message in messages %}
+							<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+							<span>{{ message }}</span>
+							  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+
+				<form class="pt-3" action="" method="post" novalidate>
+					{{ form.hidden_tag() }}
+					<h3 class="mb-3 text-center">Login</h3>
+					{% for field in form if field.widget.input_type != 'hidden' %}
+						<div class="mb-3">
+							{{ field.label(class='form-label') }}
+							{% if field.errors %}
+								{{ field(class='form-control form-control-lg is-invalid') }}
+								<div class="invalid-feedback text-danger">
+									{% for error in field.errors %}
+										<small>
+											{{ error }}
+										</small>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ field(class='form-control form-control-lg') }}
+							{% endif %}
+						</div>
+					{% endfor %}
+				<button type="submit" class="btn btn-dark btn-lg mt-3">Login</button>
+				</form>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+	<section class="admin py-5">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4">
+					<h1>{{ g.user.username.capitalize() }}'s Admin Page</h1>
+				</div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
