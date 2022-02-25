@@ -18,7 +18,7 @@
 					{% endif %}
 				{% endwith %}
 
-				<form class="pt-3" action="" method="post" novalidate>
+				<form class="pt-3" method="post" novalidate>
 					{{ form.hidden_tag() }}
 					<h3 class="mb-3 text-center">Login</h3>
 					{% for field in form if field.widget.input_type != 'hidden' %}
