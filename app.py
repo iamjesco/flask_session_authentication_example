@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, flash, session, g
 from forms import Login
+from datetime import timedelta
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asdregwer456345634trgwer'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)  # Log out after X amount minutes
 
 
 users = [
@@ -17,6 +19,7 @@ users = [
 
 @app.before_request
 def before_request():
+	session.permanent = True
 	g.user = None
 	if 'user_id' in session:
 		user = [x for x in users if x['id'] == session['user_id']][0]
@@ -30,9 +33,9 @@ def home():
 
 @app.route('/admin')
 def admin():
-	if not g.user:
-		return redirect(url_for('login'))
-	return render_template('admin.html')
+	if g.user:
+		return render_template('admin.html')
+	return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
